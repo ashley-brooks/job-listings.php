@@ -67,9 +67,9 @@ class JobListings {
         endif;
 
         // DB query and results
-        $listingsQuery = "SELECT * FROM jobs_ol";
+        $listingsQuery = "SELECT * FROM jobs";
         $searched ? $listingsQuery .= $modQuery : null;
-        !$searched ? $listingsQuery .= " ORDER BY job_ref DESC LIMIT $limit OFFSET $offset" : null;
+        !$searched ? $listingsQuery .= " ORDER BY ref DESC LIMIT $limit OFFSET $offset" : null;
         $jobListings = $this->db->get_results($listingsQuery);
 
         // Empty check
@@ -121,7 +121,7 @@ class JobListings {
     }
 
     public function get_single_listing($listingID) {
-        $singleQuery = "SELECT * FROM jobs WHERE job_ref = $listingID";
+        $singleQuery = "SELECT * FROM jobs WHERE ref = $listingID";
         $listingResults = $this->db->get_results($singleQuery);
         return $listingResults;
     }
@@ -207,7 +207,7 @@ class JobListings {
     }
 
     public function listings_pagination() {
-        $countQuery = "SELECT COUNT(job_ref) FROM jobs_ol";
+        $countQuery = "SELECT COUNT(ref) FROM jobs";
         $listingsCount = $this->db->get_results($countQuery);
         $limit = $this->listingLimit;
         $pagLink = '';
